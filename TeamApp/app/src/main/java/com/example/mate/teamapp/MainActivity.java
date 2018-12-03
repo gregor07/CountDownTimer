@@ -13,7 +13,7 @@ import java.util.Locale;
 
 public class MainActivity extends Activity {
     MediaPlayer player;
-    private static final long START_TIME__IN_MILLISECONDS=10000;
+    private static final long START_TIME__IN_MILLISECONDS=30000;
 
     private TextView mTextViewCountdown;
     private Button mButtonStartPause;
@@ -147,7 +147,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    //az elforgatásból adódó hiba kiküszöbölése
+    //az elforgatásból adódó hiba kiküszöbölésére
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -161,8 +161,8 @@ public class MainActivity extends Activity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
-        mTimeLeftInMilliseconds = savedInstanceState.getLong("millisLeft");
         mTimerRunning = savedInstanceState.getBoolean("timerRunning");
+        mTimeLeftInMilliseconds = savedInstanceState.getLong("millisLeft");
 
         updateCountDownText();
         updateButtons();

@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/text_view_countdown"
         android:layout_centerHorizontal="true"
+        android:background="@android:color/holo_green_light"
         android:text="Start" />
 
     <Button
@@ -31,6 +32,7 @@
         android:layout_below="@+id/text_view_countdown"
         android:layout_marginStart="11dp"
         android:layout_toEndOf="@+id/button_start_pause"
+        android:background="@android:color/holo_red_light"
         android:text="Reset"
         android:visibility="invisible"
         tools:visibility="visible" />
@@ -43,6 +45,7 @@
         android:layout_marginStart="11dp"
         android:layout_marginTop="1dp"
         android:layout_toEndOf="@+id/text_view_countdown"
+        android:background="@android:color/holo_blue_light"
         android:text="Button" />
 
     <Button
@@ -52,6 +55,7 @@
         android:layout_centerVertical="true"
         android:layout_marginEnd="14dp"
         android:layout_toStartOf="@+id/text_view_countdown"
+        android:background="@android:color/holo_blue_light"
         android:text="Button" />
 
 </RelativeLayout>
