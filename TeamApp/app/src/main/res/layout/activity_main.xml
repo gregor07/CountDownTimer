@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TimePicker
+        android:id="@+id/timePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/text_view_countdown"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="1dp"
+        android:timePickerMode="spinner" />
+
     <TextView
         android:id="@+id/text_view_countdown"
         android:layout_width="wrap_content"
@@ -36,26 +45,5 @@
         android:text="Reset"
         android:visibility="invisible"
         tools:visibility="visible" />
-
-    <Button
-        android:id="@+id/button_increase"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/button_decrease"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="1dp"
-        android:layout_toEndOf="@+id/text_view_countdown"
-        android:background="@android:color/holo_blue_light"
-        android:text="Button" />
-
-    <Button
-        android:id="@+id/button_decrease"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="14dp"
-        android:layout_toStartOf="@+id/text_view_countdown"
-        android:background="@android:color/holo_blue_light"
-        android:text="Button" />
 
 </RelativeLayout>

@@ -8,6 +8,7 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import java.util.Locale;
 
@@ -18,13 +19,12 @@ public class MainActivity extends Activity {
     private TextView mTextViewCountdown;
     private Button mButtonStartPause;
     private Button mButtonReset;
-    private Button mButtonIncrease;
-    private Button mButtonDecrease;
     private CountDownTimer mCountDownTimer;
     private boolean mTimerRunning;
     private long mTimeLeftInMilliseconds = START_TIME__IN_MILLISECONDS;
     private long mEndTime;
     private MediaPlayer music;
+    private TimePicker timePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,24 +34,19 @@ public class MainActivity extends Activity {
         mTextViewCountdown = findViewById(R.id.text_view_countdown);
         mButtonStartPause =  findViewById(R.id.button_start_pause);
         mButtonReset =  findViewById(R.id.button_reset);
-        mButtonIncrease = findViewById(R.id.button_increase);
-        mButtonDecrease = findViewById(R.id.button_decrease);
+        timePicker = findViewById(R.id.timePicker);
+        timePicker.setIs24HourView(true);
+
         music = MediaPlayer.create(MainActivity.this,R.raw.finish);
 
-        mButtonIncrease.setOnClickListener(new View.OnClickListener() {
+        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
-            public void onClick(View view) {
-                mTimeLeftInMilliseconds=mTimeLeftInMilliseconds+60000;
-                updateCountDownText();
-            }
-        });
-        mButtonDecrease.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mTimeLeftInMilliseconds-60000>0){
-                    mTimeLeftInMilliseconds=mTimeLeftInMilliseconds-60000;
-                    updateCountDownText();
-                }
+            public void onTimeChanged(TimePicker timePicker, int i, int i1) {
+
+                String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", i, i1);
+                long setTimeFromTimePicker = i*60000 + i1*1000;
+                mTimeLeftInMilliseconds = setTimeFromTimePicker;
+                mTextViewCountdown.setText(timeLeftFormatted);
             }
         });
 
@@ -75,7 +70,6 @@ public class MainActivity extends Activity {
 
 
     }
-
     //
     private  void startTimer(){
         // megadjuk, hogy mikor kéne lejárnia a számlálónak.
@@ -112,7 +106,14 @@ public class MainActivity extends Activity {
     }
     //nullázza az eltelt időt
     private void resetTimer(){
-        mTimeLeftInMilliseconds = START_TIME__IN_MILLISECONDS;
+        int i = timePicker.getHour();
+        int i1 = timePicker.getMinute();
+        //mTimeLeftInMilliseconds = START_TIME__IN_MILLISECONDS;
+        String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", i, i1);
+        long setTimeFromTimePicker = i*60000 + i1*1000;
+        mTimeLeftInMilliseconds = setTimeFromTimePicker;
+        mTextViewCountdown.setText(timeLeftFormatted);
+
         updateCountDownText();
         updateButtons();
     }
@@ -131,13 +132,9 @@ public class MainActivity extends Activity {
         if (mTimerRunning){
             mButtonReset.setVisibility(View.INVISIBLE);
             mButtonStartPause.setText("Pause");
-            mButtonIncrease.setText("+");
-            mButtonDecrease.setText("-");
         }else{
             mButtonReset.setVisibility(View.VISIBLE);
             mButtonStartPause.setText("Start");
-            mButtonIncrease.setText("+");
-            mButtonDecrease.setText("-");
             //1 másodperc alatt
             if (mTimeLeftInMilliseconds < 1000){
                 mButtonStartPause.setVisibility(View.INVISIBLE);
