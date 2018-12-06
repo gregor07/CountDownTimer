@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     MediaPlayer player;
     private static final long START_TIME__IN_MILLISECONDS=30000;
 
-    private Toolbar toolbar;
     private TextView mTextViewCountdown;
     private Button mButtonStartPause;
     private Button mButtonReset;
@@ -56,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
         mButtonReset =  findViewById(R.id.button_reset);
         timePicker = findViewById(R.id.timePicker);
         timePicker.setIs24HourView(true);
-        toolbar = findViewById(R.id.toolbar);
-        toolbar.setCon
 
         music = MediaPlayer.create(MainActivity.this,R.raw.finish);
 
