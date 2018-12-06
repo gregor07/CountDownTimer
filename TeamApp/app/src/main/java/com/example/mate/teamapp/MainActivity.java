@@ -1,6 +1,9 @@
 package com.example.mate.teamapp;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+// import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -9,8 +12,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import android.app.Activity;
-import android.content.SharedPreferences;
+
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.widget.Button;
@@ -37,8 +39,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //összekötöm a vezérlőt
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        mTextViewCountdown = findViewById(R.id.text_view_countdown);
+        mButtonStartPause =  findViewById(R.id.button_start_pause);
+        mButtonReset =  findViewById(R.id.button_reset);
+        timePicker = findViewById(R.id.timePicker);
+        timePicker.setIs24HourView(true);
+        music = MediaPlayer.create(MainActivity.this,R.raw.finish);
+
+        // PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+        android.support.v7.preference.PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -48,15 +60,6 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
-        //összekötöm a vezérlőt
-        mTextViewCountdown = findViewById(R.id.text_view_countdown);
-        mButtonStartPause =  findViewById(R.id.button_start_pause);
-        mButtonReset =  findViewById(R.id.button_reset);
-        timePicker = findViewById(R.id.timePicker);
-        timePicker.setIs24HourView(true);
-
-        music = MediaPlayer.create(MainActivity.this,R.raw.finish);
 
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 mTextViewCountdown.setText(timeLeftFormatted);
             }
         });
+
         mButtonStartPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
     private  void startTimer(){
         // megadjuk, hogy mikor kéne lejárnia a számlálónak.
         // Így kiküszöbölhető az elforgatásokból adódó idő különbözet
@@ -112,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         mTimerRunning = true;
         updateButtons();
     }
+
     //ez a függvény lestoppolja a számlálót
     private void pauseTimer(){
         mCountDownTimer.cancel();
@@ -204,6 +210,7 @@ public class MainActivity extends AppCompatActivity {
             mCountDownTimer.cancel();
         }
     }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -246,6 +253,8 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
 

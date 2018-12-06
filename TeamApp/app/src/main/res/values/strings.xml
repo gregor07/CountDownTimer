@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">TeamApp</string>
     <string name="action_settings">Settings</string>
+    <string name="switch_sound_alert_title">Sound alert</string>
+    <string name="switch_sound_alert_summary">Turn on or off the sound alert</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
