@@ -3,19 +3,22 @@ package com.example.mate.teamapp;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-// import android.preference.PreferenceManager;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -49,6 +52,15 @@ public class MainActivity extends AppCompatActivity {
         timePicker.setIs24HourView(true);
         music = MediaPlayer.create(MainActivity.this,R.raw.finish);
 
+        /*
+        SwitchCompat onOffSwitch = (SwitchCompat) findViewById(R.xml.preferences);
+        onOffSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                Log.v("Switch State=", ""+isChecked);
+            }
+        });
+        */
         // PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         android.support.v7.preference.PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
@@ -56,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Made By: Mate Gregor and Viktor Halasz", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -105,8 +117,14 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                // false-ra állítjuk, ha már nem fut a timer
-                music.start();
+                // hang lejátszása, de csak ha a beállítás be van kapcsolva
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                boolean playMusic = prefs.getBoolean("sound_alert_switch", true);
+                if (playMusic) {
+                    music.start();
+                }
+
+                //music.start();
                 mTimerRunning = false;
                 updateButtons();
                 mTextViewCountdown.setText("00:00");
