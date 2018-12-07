@@ -18,10 +18,10 @@ public class SettingsActivity extends AppCompatActivity {
                 .replace(android.R.id.content, new SettingsFragment())
                 .commit();
 
-        SharedPreferences sharedPref = android.support.v7.preference.PreferenceManager.getDefaultSharedPreferences(this);
+        //SharedPreferences sharedPref = android.support.v7.preference.PreferenceManager.getDefaultSharedPreferences(this);
         // SharedPreferences sharedPref = PreferenceManager .getDefaultSharedPreferences(this);
-        Boolean switchPref = sharedPref.getBoolean(SettingsActivity.KEY_PREF_ALERT_SWITCH, false);
+        // Boolean switchPref = sharedPref.getBoolean(SettingsActivity.KEY_PREF_ALERT_SWITCH, false);
 
-        Toast.makeText(this, switchPref.toString(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, switchPref.toString(), Toast.LENGTH_SHORT).show();
     }
 }

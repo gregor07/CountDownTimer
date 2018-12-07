@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                // hang lejátszása, de csak ha a beállítás be van kapcsolva
+                // hang lejátszása, ha a beállítás be van kapcsolva
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 boolean playMusic = prefs.getBoolean("sound_alert_switch", true);
                 if (playMusic) {
